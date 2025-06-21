@@ -1,3 +1,12 @@
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css'; // Or your chosen theme
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* General styles for entire app */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Inter', sans-serif; /* Apply Inter font globally */
+    background-color: #f8fafc; /* Light gray background */
+}

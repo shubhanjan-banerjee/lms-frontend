@@ -1,0 +1,115 @@
+<div class="flex h-screen bg-gray-100 font-inter">
+  <!-- Sidebar Navigation -->
+  <div class="w-64 bg-gradient-to-b from-blue-800 to-blue-900 text-white p-6 shadow-xl flex flex-col justify-between">
+    <div>
+      <div class="text-2xl font-extrabold text-cyan-300 mb-10">LMS Developer</div>
+      <nav>
+        <ul>
+          <li class="mb-4">
+            <button (click)="setPage('my-courses')"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
+              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'my-courses', 'hover:bg-blue-600 text-gray-300': currentPage !== 'my-courses'}">
+              <mat-icon class="align-middle mr-2">playlist_add_check</mat-icon> My Courses
+            </button>
+          </li>
+          <li class="mb-4">
+            <button (click)="setPage('mandatory')"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
+              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'mandatory', 'hover:bg-blue-600 text-gray-300': currentPage !== 'mandatory'}">
+              <mat-icon class="align-middle mr-2">assignment</mat-icon> Mandatory Learning
+            </button>
+          </li>
+          <li class="mb-4">
+            <button (click)="setPage('optional')"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
+              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'optional', 'hover:bg-blue-600 text-gray-300': currentPage !== 'optional'}">
+              <mat-icon class="align-middle mr-2">lightbulb</mat-icon> Optional Courses
+            </button>
+          </li>
+          <li class="mb-4">
+            <button (click)="setPage('popular')"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
+              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'popular', 'hover:bg-blue-600 text-gray-300': currentPage !== 'popular'}">
+              <mat-icon class="align-middle mr-2">trending_up</mat-icon> Popular Courses
+            </button>
+          </li>
+          <li class="mb-4">
+            <button (click)="setPage('progress')"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
+              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'progress', 'hover:bg-blue-600 text-gray-300': currentPage !== 'progress'}">
+              <mat-icon class="align-middle mr-2">track_changes</mat-icon> My Progress
+            </button>
+          </li>
+          <li class="mb-4">
+            <button (click)="setPage('chatbot')"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
+              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'chatbot', 'hover:bg-blue-600 text-gray-300': currentPage !== 'chatbot'}">
+              <mat-icon class="align-middle mr-2">chat_bubble</mat-icon> Chatbot
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mt-auto">
+      <button (click)="logout()"
+        class="w-full flex items-center justify-center px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300">
+        <mat-icon class="align-middle mr-2">logout</mat-icon> Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area for Developer Dashboard -->
+  <main class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center animate-fade-in">Developer Dashboard</h1>
+
+    <div [ngSwitch]="currentPage">
+      <ng-container *ngSwitchCase="'my-courses'">
+        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">playlist_add_check</mat-icon> My Registered
+            Courses</h2>
+          <p>View courses and learning paths you have already registered for.</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'mandatory'">
+        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">assignment</mat-icon> Mandatory Learning
+            Paths</h2>
+          <p>Courses identified by the system that you are yet to register for.</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'optional'">
+        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">lightbulb</mat-icon> Optional Recommended
+            Courses</h2>
+          <p>Explore optional courses recommended by the system based on your profile.</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'popular'">
+        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">trending_up</mat-icon> Popular Courses</h2>
+          <p>See courses popular among your peers and register if interested.</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'progress'">
+        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">track_changes</mat-icon> My Learning
+            Progress</h2>
+          <p>Track your individual and combined progress on all your enrolled courses.</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'chatbot'">
+        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
+          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">chat_bubble</mat-icon> My Learning Chatbot
+          </h2>
+          <p>Ask the chatbot questions about your personal learning journey and progress.</p>
+          <p class="text-base text-red-600">Note: This chatbot will NOT show other users' learning data.</p>
+        </div>
+      </ng-container>
+    </div>
+  </main>
+</div>
