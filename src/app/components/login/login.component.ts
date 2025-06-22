@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,13 +7,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -21,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    NgIf
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -29,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
+  errorMsg = '';
 
   constructor(private authService: AuthService, private router: Router) {
     this.loginForm = new FormGroup({
@@ -37,33 +39,26 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe(loggedIn => {
-      if (loggedIn) {
-        this.router.navigate(['/admin']);
-      }
-    });
-  }
+  ngOnInit(): void { }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
+      this.errorMsg = '';
       const { username, password } = this.loginForm.value;
-      this.authService.login(username, password).subscribe({
-        next: (success) => {
+      this.authService.login({ username, password }).subscribe({
+        next: (token) => {
           this.isLoading = false;
-          if (!success) {
-            alert('Login failed. Please check your credentials.');
-          }
+          this.authService.setToken(token);
+          this.router.navigate(['/admin']);
         },
         error: (err) => {
           this.isLoading = false;
-          console.error('Login error:', err);
-          alert('An error occurred during login. Please try again.');
+          this.errorMsg = 'Login failed. Please check your credentials.';
         }
       });
     } else {
-      alert('Please enter both username and password.');
+      this.loginForm.markAllAsTouched();
     }
   }
 }

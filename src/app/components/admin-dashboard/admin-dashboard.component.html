@@ -100,38 +100,48 @@
               <mat-icon class="mr-2 text-indigo-500">people</mat-icon> Employee Skill Profiles
             </h2>
             <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
-                      Developer</th>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skills</th>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                      Proficiency</th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr *ngFor="let dev of developers" class="hover:bg-gray-50 transition duration-150 ease-in-out">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ dev.name }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ dev.role }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                      <span *ngFor="let skill of dev.skills"
-                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-1 mb-1">
-                        {{ skill }}
-                      </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ dev.proficiency }}</td>
-                  </tr>
-                </tbody>
+              <table mat-table [dataSource]="developers" class="min-w-full divide-y divide-gray-200" matSort>
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
+                    Developer</th>
+                  <td mat-cell *matCellDef="let dev"
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ dev.name }}</td>
+                </ng-container>
+                <!-- Role Column -->
+                <ng-container matColumnDef="role">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                  <td mat-cell *matCellDef="let dev" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{
+                    dev.role }}</td>
+                </ng-container>
+                <!-- Skills Column -->
+                <ng-container matColumnDef="skills">
+                  <th mat-header-cell *matHeaderCellDef
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skills</th>
+                  <td mat-cell *matCellDef="let dev" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    <span *ngFor="let skill of dev.skills" matTooltip="{{ skill }}"
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-1 mb-1">
+                      {{ skill }}
+                    </span>
+                  </td>
+                </ng-container>
+                <!-- Proficiency Column -->
+                <ng-container matColumnDef="proficiency">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
+                    Proficiency</th>
+                  <td mat-cell *matCellDef="let dev" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{
+                    dev.proficiency }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['name', 'role', 'skills', 'proficiency']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['name', 'role', 'skills', 'proficiency'];"></tr>
               </table>
             </div>
             <button mat-raised-button color="primary"
-              class="mt-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300">
+              class="mt-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300"
+              (click)="setPage('employees')">
               Manage Employees
             </button>
           </div>
@@ -142,33 +152,38 @@
               <mat-icon class="mr-2 text-red-500">warning</mat-icon> Identified Skill Gaps
             </h2>
             <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
-                      Developer</th>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skill Gap
-                    </th>
-                    <th scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                      Required / Current</th>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr *ngFor="let gap of skillGaps; index as i"
-                    class="hover:bg-gray-50 transition duration-150 ease-in-out">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ gap.developer }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">{{ gap.gapSkill }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ gap.requiredProficiency }} / {{
-                      gap.currentProficiency }}</td>
-                  </tr>
-                </tbody>
+              <table mat-table [dataSource]="skillGaps" class="min-w-full divide-y divide-gray-200" matSort>
+                <!-- Developer Column -->
+                <ng-container matColumnDef="developer">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
+                    Developer</th>
+                  <td mat-cell *matCellDef="let gap"
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ gap.developer }}</td>
+                </ng-container>
+                <!-- Skill Gap Column -->
+                <ng-container matColumnDef="gapSkill">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skill Gap
+                  </th>
+                  <td mat-cell *matCellDef="let gap"
+                    class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">{{ gap.gapSkill }}</td>
+                </ng-container>
+                <!-- Required/Current Column -->
+                <ng-container matColumnDef="requiredCurrent">
+                  <th mat-header-cell *matHeaderCellDef
+                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
+                    Required / Current</th>
+                  <td mat-cell *matCellDef="let gap" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{
+                    gap.requiredProficiency }} / {{ gap.currentProficiency }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="['developer', 'gapSkill', 'requiredCurrent']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['developer', 'gapSkill', 'requiredCurrent'];"></tr>
               </table>
             </div>
             <button mat-raised-button color="accent"
-              class="mt-4 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition duration-300">
+              class="mt-4 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition duration-300"
+              (click)="setPage('skills')">
               Analyze Gaps
             </button>
           </div>
