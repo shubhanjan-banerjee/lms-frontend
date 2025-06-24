@@ -6,46 +6,34 @@
       <nav>
         <ul>
           <li class="mb-4">
-            <button (click)="setPage('dashboard')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-indigo-700 text-white shadow-md': currentPage === 'dashboard', 'hover:bg-gray-700 text-gray-300': currentPage !== 'dashboard'}">
+            <a routerLink="/admin/dashboard" routerLinkActive="bg-indigo-700 text-white shadow-md"
+              class="w-full block text-left px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-700 text-gray-300">
               <mat-icon class="align-middle mr-2">dashboard</mat-icon> Dashboard
-            </button>
+            </a>
           </li>
           <li class="mb-4">
-            <button (click)="setPage('employees')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-indigo-700 text-white shadow-md': currentPage === 'employees', 'hover:bg-gray-700 text-gray-300': currentPage !== 'employees'}">
+            <a routerLink="/admin/employees" routerLinkActive="bg-indigo-700 text-white shadow-md"
+              class="w-full block text-left px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-700 text-gray-300">
               <mat-icon class="align-middle mr-2">group</mat-icon> Employees
-            </button>
+            </a>
           </li>
           <li class="mb-4">
-            <button (click)="setPage('skills')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-indigo-700 text-white shadow-md': currentPage === 'skills', 'hover:bg-gray-700 text-gray-300': currentPage !== 'skills'}">
+            <a routerLink="/admin/skills" routerLinkActive="bg-indigo-700 text-white shadow-md"
+              class="w-full block text-left px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-700 text-gray-300">
               <mat-icon class="align-middle mr-2">star</mat-icon> Skills & Roles
-            </button>
+            </a>
           </li>
           <li class="mb-4">
-            <button (click)="setPage('learningPaths')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-indigo-700 text-white shadow-md': currentPage === 'learningPaths', 'hover:bg-gray-700 text-gray-300': currentPage !== 'learningPaths'}">
+            <a routerLink="/admin/learning-paths" routerLinkActive="bg-indigo-700 text-white shadow-md"
+              class="w-full block text-left px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-700 text-gray-300">
               <mat-icon class="align-middle mr-2">book</mat-icon> Learning Paths
-            </button>
+            </a>
           </li>
           <li class="mb-4">
-            <button (click)="setPage('reports')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-indigo-700 text-white shadow-md': currentPage === 'reports', 'hover:bg-gray-700 text-gray-300': currentPage !== 'reports'}">
+            <a routerLink="/admin/reports" routerLinkActive="bg-indigo-700 text-white shadow-md"
+              class="w-full block text-left px-4 py-2 rounded-lg transition-colors duration-200 hover:bg-gray-700 text-gray-300">
               <mat-icon class="align-middle mr-2">bar_chart</mat-icon> Reports
-            </button>
-          </li>
-          <li class="mb-4">
-            <button (click)="setPage('chatbot')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-indigo-700 text-white shadow-md': currentPage === 'chatbot', 'hover:bg-gray-700 text-gray-300': currentPage !== 'chatbot'}">
-              <mat-icon class="align-middle mr-2">chat</mat-icon> Chatbot
-            </button>
+            </a>
           </li>
         </ul>
       </nav>
@@ -60,270 +48,6 @@
 
   <!-- Main Content Area -->
   <main class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
-    <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center animate-fade-in">Admin Dashboard</h1>
-
-    <div [ngSwitch]="currentPage">
-      <ng-container *ngSwitchCase="'dashboard'">
-        <!-- Content for Dashboard Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300">
-            <div class="text-5xl text-blue-600 mb-2">📊</div>
-            <h3 class="text-xl font-semibold text-gray-800">Total Developers</h3>
-            <p class="text-4xl font-bold text-indigo-700">150</p>
-          </div>
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300">
-            <div class="text-5xl text-green-600 mb-2">🎓</div>
-            <h3 class="text-xl font-semibold text-gray-800">Courses Available</h3>
-            <p class="text-4xl font-bold text-emerald-700">75</p>
-          </div>
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300">
-            <div class="text-5xl text-yellow-600 mb-2">🚧</div>
-            <h3 class="text-xl font-semibold text-gray-800">Skill Gaps Identified</h3>
-            <p class="text-4xl font-bold text-amber-700">230</p>
-          </div>
-          <div
-            class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center transform hover:scale-105 transition-transform duration-300">
-            <div class="text-5xl text-red-600 mb-2">⚠️</div>
-            <h3 class="text-xl font-semibold text-gray-800">Lagging Progress</h3>
-            <p class="text-4xl font-bold text-rose-700">45</p>
-          </div>
-        </div>
-
-        <!-- Developers & Skill Gaps Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-          <!-- User Management Section -->
-          <div class="bg-white rounded-xl shadow-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-              <mat-icon class="mr-2 text-indigo-500">people</mat-icon> Employee Skill Profiles
-            </h2>
-            <div class="overflow-x-auto">
-              <table mat-table [dataSource]="developers" class="min-w-full divide-y divide-gray-200" matSort>
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
-                    Developer</th>
-                  <td mat-cell *matCellDef="let dev"
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ dev.name }}</td>
-                </ng-container>
-                <!-- Role Column -->
-                <ng-container matColumnDef="role">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                  <td mat-cell *matCellDef="let dev" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{
-                    dev.role }}</td>
-                </ng-container>
-                <!-- Skills Column -->
-                <ng-container matColumnDef="skills">
-                  <th mat-header-cell *matHeaderCellDef
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skills</th>
-                  <td mat-cell *matCellDef="let dev" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                    <span *ngFor="let skill of dev.skills" matTooltip="{{ skill }}"
-                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-1 mb-1">
-                      {{ skill }}
-                    </span>
-                  </td>
-                </ng-container>
-                <!-- Proficiency Column -->
-                <ng-container matColumnDef="proficiency">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                    Proficiency</th>
-                  <td mat-cell *matCellDef="let dev" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{
-                    dev.proficiency }}</td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="['name', 'role', 'skills', 'proficiency']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['name', 'role', 'skills', 'proficiency'];"></tr>
-              </table>
-            </div>
-            <button mat-raised-button color="primary"
-              class="mt-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300"
-              (click)="setPage('employees')">
-              Manage Employees
-            </button>
-          </div>
-
-          <!-- Skill Gap Analysis Section -->
-          <div class="bg-white rounded-xl shadow-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-              <mat-icon class="mr-2 text-red-500">warning</mat-icon> Identified Skill Gaps
-            </h2>
-            <div class="overflow-x-auto">
-              <table mat-table [dataSource]="skillGaps" class="min-w-full divide-y divide-gray-200" matSort>
-                <!-- Developer Column -->
-                <ng-container matColumnDef="developer">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
-                    Developer</th>
-                  <td mat-cell *matCellDef="let gap"
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ gap.developer }}</td>
-                </ng-container>
-                <!-- Skill Gap Column -->
-                <ng-container matColumnDef="gapSkill">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skill Gap
-                  </th>
-                  <td mat-cell *matCellDef="let gap"
-                    class="px-6 py-4 whitespace-nowrap text-sm text-red-600 font-semibold">{{ gap.gapSkill }}</td>
-                </ng-container>
-                <!-- Required/Current Column -->
-                <ng-container matColumnDef="requiredCurrent">
-                  <th mat-header-cell *matHeaderCellDef
-                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                    Required / Current</th>
-                  <td mat-cell *matCellDef="let gap" class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{
-                    gap.requiredProficiency }} / {{ gap.currentProficiency }}</td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="['developer', 'gapSkill', 'requiredCurrent']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['developer', 'gapSkill', 'requiredCurrent'];"></tr>
-              </table>
-            </div>
-            <button mat-raised-button color="accent"
-              class="mt-4 px-4 py-2 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition duration-300"
-              (click)="setPage('skills')">
-              Analyze Gaps
-            </button>
-          </div>
-        </div>
-
-        <!-- Learning Paths / Courses Section - Pictorial Representation -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-10">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-            <mat-icon class="mr-2 text-green-500">library_books</mat-icon> Learning Paths & Courses
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <mat-card *ngFor="let path of learningPaths"
-              class="bg-gray-50 rounded-xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer border border-gray-200">
-              <img [src]="path.image" [alt]="path.title" class="w-full h-40 object-cover"
-                onerror="this.onerror=null;this.src='https://placehold.co/400x250/CCCCCC/666666?text=Image+Error';" />
-              <mat-card-content class="p-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ path.title }}</h3>
-                <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ path.description }}</p>
-                <div class="flex flex-wrap gap-1 mb-3">
-                  <span *ngFor="let skill of path.skillsCovered"
-                    class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">
-                    {{ skill }}
-                  </span>
-                </div>
-                <span [ngClass]="{
-                            'bg-green-100 text-green-800': path.status === 'Active',
-                            'bg-blue-100 text-blue-800': path.status === 'New',
-                            'bg-amber-100 text-amber-800': path.status === 'Popular',
-                            'bg-gray-100 text-gray-800': path.status === 'Upcoming'
-                        }" class="px-3 py-1 text-sm font-semibold rounded-full">
-                  {{ path.status }}
-                </span>
-                <button mat-raised-button color="accent"
-                  class="mt-4 w-full bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition duration-300">
-                  View Details
-                </button>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <button mat-raised-button color="primary"
-            class="mt-6 px-6 py-3 bg-fuchsia-600 text-white font-semibold rounded-lg shadow-md hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 transition duration-300 text-lg">
-            Manage Learning Paths
-          </button>
-        </div>
-
-        <!-- Role-Skill Swapping Suggestion -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-10">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-            <mat-icon class="mr-2 text-orange-500">swap_horiz</mat-icon> Role-Skill Swap Suggestions
-          </h2>
-          <p class="text-gray-700 mb-4">
-            The system can suggest optimal role-skill combinations to reduce overall skill gaps within the team. For
-            example:
-          </p>
-          <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-md">
-            <p class="text-sm text-orange-700 font-semibold">
-              Suggestion: Employee X (currently Backend Dev) might be a better fit for the project role requiring strong
-              Cloud Security skills, which Employee Y currently has but isn't utilizing fully in their Frontend Dev
-              role.
-            </p>
-          </div>
-          <button mat-raised-button color="warn"
-            class="mt-4 px-4 py-2 bg-orange-600 text-white font-semibold rounded-lg shadow-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition duration-300">
-            Explore Swaps
-          </button>
-        </div>
-
-        <!-- Admin Chatbot Interface -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-10">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-            <mat-icon class="mr-2 text-cyan-500">smart_toy</mat-icon> Admin Chatbot
-          </h2>
-          <p class="text-gray-700 mb-4">
-            Interact with the chatbot to get quick information on enrollment and course completion.
-          </p>
-          <div class="flex items-center">
-            <mat-form-field appearance="outline" class="flex-grow">
-              <mat-label>Ask the Chatbot</mat-label>
-              <input matInput placeholder='e.g., "Provide me the course wise completion % for employee ID 123456"'>
-            </mat-form-field>
-            <button mat-raised-button color="primary"
-              class="px-6 py-2 bg-cyan-600 text-white font-semibold rounded-r-lg shadow-md hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition duration-300">
-              <mat-icon class="mr-1">send</mat-icon> Ask
-            </button>
-          </div>
-          <div class="mt-4 p-3 bg-gray-100 rounded-lg text-gray-700 text-sm italic">
-            <p>Chatbot responses will appear here...</p>
-          </div>
-        </div>
-      </ng-container>
-
-      <!-- Placeholders for other pages -->
-      <ng-container *ngSwitchCase="'employees'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">group</mat-icon> Manage Employees</h2>
-          <p>This section will allow admins to manage employee profiles, roles, and assign individual skills manually.
-          </p>
-          <button mat-raised-button color="primary" class="mt-4">Go to Employee Details</button>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'skills'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">star</mat-icon> Skills & Roles Management
-          </h2>
-          <p>Here, admins can define and manage skill definitions, proficiency levels, and role-skill matrices,
-            including uploading via Excel.</p>
-          <button mat-raised-button color="primary" class="mt-4">Upload Skill Matrix</button>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'learningPaths'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">book</mat-icon> Learning Path Configuration
-          </h2>
-          <p>This section will allow admins to create, edit, and assign learning paths and courses to individuals or in
-            bulk.</p>
-          <button mat-raised-button color="primary" class="mt-4">Create New Learning Path</button>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'reports'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">bar_chart</mat-icon> Performance Reports
-          </h2>
-          <p>Access detailed reports on course completion rates, skill gap compliance, and individual progress tracking.
-          </p>
-          <button mat-raised-button color="primary" class="mt-4">Generate Report</button>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'chatbot'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">smart_toy</mat-icon> Interactive Admin
-            Chatbot</h2>
-          <p>This dedicated page for the chatbot will provide a larger interface for asking complex queries about
-            employee data, training progress, and compliance.</p>
-          <button mat-raised-button color="primary" class="mt-4">Open Chat Interface</button>
-        </div>
-      </ng-container>
-    </div>
+    <router-outlet></router-outlet>
   </main>
 </div>

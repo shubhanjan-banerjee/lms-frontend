@@ -50,7 +50,19 @@ export class LoginComponent implements OnInit {
         next: (token) => {
           this.isLoading = false;
           this.authService.setToken(token);
-          this.router.navigate(['/admin']);
+          // Decode JWT to get user role
+          const payload = token.access_token.split('.')[1];
+          let role = '';
+          try {
+            role = JSON.parse(atob(payload)).role.toLowerCase();
+          } catch { }
+          if (role === 'admin') {
+            this.router.navigate(['/admin']);
+          } else if (role === 'developer') {
+            this.router.navigate(['/developer']);
+          } else {
+            this.router.navigate(['/access-denied']);
+          }
         },
         error: (err) => {
           this.isLoading = false;

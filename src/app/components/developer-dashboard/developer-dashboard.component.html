@@ -1,6 +1,6 @@
 <div class="flex h-screen bg-gray-100 font-inter">
   <!-- Sidebar Navigation -->
-  <div class="w-64 bg-gradient-to-b from-blue-800 to-blue-900 text-white p-6 shadow-xl flex flex-col justify-between">
+  <div class="w-100 bg-gradient-to-b from-blue-800 to-blue-900 text-white p-6 shadow-xl flex flex-col justify-between">
     <div>
       <div class="text-2xl font-extrabold text-cyan-300 mb-10">LMS Developer</div>
       <nav>
@@ -9,35 +9,14 @@
             <button (click)="setPage('my-courses')"
               class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
               [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'my-courses', 'hover:bg-blue-600 text-gray-300': currentPage !== 'my-courses'}">
-              <mat-icon class="align-middle mr-2">playlist_add_check</mat-icon> My Courses
+              <mat-icon class="align-middle mr-2">playlist_add_check</mat-icon> My Learning Paths
             </button>
           </li>
           <li class="mb-4">
             <button (click)="setPage('mandatory')"
               class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
               [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'mandatory', 'hover:bg-blue-600 text-gray-300': currentPage !== 'mandatory'}">
-              <mat-icon class="align-middle mr-2">assignment</mat-icon> Mandatory Learning
-            </button>
-          </li>
-          <li class="mb-4">
-            <button (click)="setPage('optional')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'optional', 'hover:bg-blue-600 text-gray-300': currentPage !== 'optional'}">
-              <mat-icon class="align-middle mr-2">lightbulb</mat-icon> Optional Courses
-            </button>
-          </li>
-          <li class="mb-4">
-            <button (click)="setPage('popular')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'popular', 'hover:bg-blue-600 text-gray-300': currentPage !== 'popular'}">
-              <mat-icon class="align-middle mr-2">trending_up</mat-icon> Popular Courses
-            </button>
-          </li>
-          <li class="mb-4">
-            <button (click)="setPage('progress')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'progress', 'hover:bg-blue-600 text-gray-300': currentPage !== 'progress'}">
-              <mat-icon class="align-middle mr-2">track_changes</mat-icon> My Progress
+              <mat-icon class="align-middle mr-2">assignment</mat-icon> Additional Learning Paths
             </button>
           </li>
           <li class="mb-4">
@@ -60,9 +39,47 @@
 
   <!-- Main Content Area for Developer Dashboard -->
   <main class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
-    <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center animate-fade-in">Developer Dashboard</h1>
+    <div class="p-8">
+      <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">Learning Paths</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
+          <div class="text-5xl text-blue-600 mb-2">📚</div>
+          <h3 class="text-xl font-semibold text-gray-800">All</h3>
+          <p class="text-4xl font-bold text-indigo-700">5</p>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
+          <div class="text-5xl text-green-600 mb-2">✅</div>
+          <h3 class="text-xl font-semibold text-gray-800">Enrolled</h3>
+          <p class="text-4xl font-bold text-emerald-700">2</p>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
+          <div class="text-5xl text-yellow-600 mb-2">⭐</div>
+          <h3 class="text-xl font-semibold text-gray-800">Completed</h3>
+          <p class="text-4xl font-bold text-amber-700">3</p>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
+          <div class="text-5xl text-cyan-600 mb-2">🎯</div>
+          <h3 class="text-xl font-semibold text-gray-800">In Progress</h3>
+          <p class="text-4xl font-bold text-cyan-700">4</p>
+        </div>
+        <div
+          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
+          <div class="text-5xl text-cyan-600 mb-2">🎯</div>
+          <h3 class="text-xl font-semibold text-gray-800">Not Started</h3>
+          <p class="text-4xl font-bold text-cyan-700">2</p>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <p class="text-lg text-gray-600">Welcome to your developer dashboard. Use the sidebar to access your courses,
+          track your skill progress, view your learning path, reports, and interact with the chatbot for quick help.</p>
+      </div>
+    </div>
 
-    <div [ngSwitch]="currentPage">
+    <div [ngSwitch]="currentPage" class="mt-10">
       <ng-container *ngSwitchCase="'my-courses'">
         <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
           <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">playlist_add_check</mat-icon> My Registered

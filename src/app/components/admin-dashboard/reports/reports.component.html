@@ -1,0 +1,27 @@
+<div>
+  <!-- Reports Content (move from admin-dashboard.component.html) -->
+  <!-- TODO: Insert reports HTML here -->
+  <div class="p-8 bg-white rounded-xl shadow-lg">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center"><mat-icon class="mr-2">bar_chart</mat-icon>
+      Performance Reports</h2>
+    <p class="text-lg text-gray-700 mb-6">Access detailed reports on course completion rates, skill gap compliance, and
+      individual progress tracking. Generate and download reports below.</p>
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="flex-1">
+        <h3 class="text-xl font-semibold mb-2">Course Completion</h3>
+        <div class="bg-blue-100 rounded-lg p-4 mb-4">
+          <p class="text-lg font-bold text-blue-800">Frontend Mastery: 85%</p>
+          <p class="text-sm text-blue-700">Last updated: Today</p>
+        </div>
+        <div class="bg-green-100 rounded-lg p-4">
+          <p class="text-lg font-bold text-green-800">Backend Excellence: 78%</p>
+          <p class="text-sm text-green-700">Last updated: Today</p>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col justify-center items-center">
+        <button mat-raised-button color="primary" class="mb-4">Generate Report</button>
+        <button mat-raised-button color="accent">Download CSV</button>
+      </div>
+    </div>
+  </div>
+</div>
