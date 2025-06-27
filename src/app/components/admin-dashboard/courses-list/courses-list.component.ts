@@ -33,7 +33,7 @@ export class AdminCoursesListComponent implements OnInit {
     this.loading = true;
     this.courseService.getCourses({ search: this.search, sort: this.sort, filter: this.filter })
       .subscribe({
-        next: (res: any) => { this.courses = res; this.loading = false; },
+        next: (res: any) => { this.courses = res.items; this.loading = false; },
         error: () => { this.loading = false; }
       });
   }

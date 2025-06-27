@@ -28,7 +28,7 @@ export class DeveloperLearningPathsListComponent implements OnInit {
     this.loading = true;
     this.learningPathService.getLearningPaths({ search: this.search, sort: this.sort, filter: this.filter })
       .subscribe({
-        next: (res: any) => { this.learningPaths = res; this.loading = false; },
+        next: (res: any) => { this.learningPaths = res.items; this.loading = false; },
         error: () => { this.loading = false; }
       });
   }

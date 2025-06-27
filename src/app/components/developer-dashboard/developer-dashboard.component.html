@@ -6,25 +6,46 @@
       <nav>
         <ul>
           <li class="mb-4">
-            <button (click)="setPage('my-courses')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'my-courses', 'hover:bg-blue-600 text-gray-300': currentPage !== 'my-courses'}">
-              <mat-icon class="align-middle mr-2">playlist_add_check</mat-icon> Dashboard
-            </button>
+            <a routerLink="/developer/dashboard" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">dashboard</mat-icon> Dashboard
+            </a>
           </li>
           <li class="mb-4">
-            <button (click)="setPage('mandatory')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'mandatory', 'hover:bg-blue-600 text-gray-300': currentPage !== 'mandatory'}">
-              <mat-icon class="align-middle mr-2">assignment</mat-icon> Additional Learning Paths
-            </button>
+            <a routerLink="/developer/my-courses" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">playlist_add_check</mat-icon> My Courses
+            </a>
           </li>
           <li class="mb-4">
-            <button (click)="setPage('chatbot')"
-              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200"
-              [ngClass]="{'bg-blue-700 text-white shadow-md': currentPage === 'chatbot', 'hover:bg-blue-600 text-gray-300': currentPage !== 'chatbot'}">
+            <a routerLink="/developer/skill-progress" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">track_changes</mat-icon> Skill Progress
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/learning-paths" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">library_books</mat-icon> Learning Paths
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/courses" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">school</mat-icon> Courses
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/reports" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">bar_chart</mat-icon> Reports
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/chatbot" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
               <mat-icon class="align-middle mr-2">chat_bubble</mat-icon> Chatbot
-            </button>
+            </a>
           </li>
         </ul>
       </nav>
@@ -39,94 +60,6 @@
 
   <!-- Main Content Area for Developer Dashboard -->
   <main class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
-    <div class="p-8">
-      <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">My Learning Paths</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div
-          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl text-blue-600 mb-2">📚</div>
-          <h3 class="text-xl font-semibold text-gray-800">All</h3>
-          <p class="text-4xl font-bold text-indigo-700">5</p>
-        </div>
-        <div
-          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl text-green-600 mb-2">✅</div>
-          <h3 class="text-xl font-semibold text-gray-800">Enrolled</h3>
-          <p class="text-4xl font-bold text-emerald-700">2</p>
-        </div>
-        <div
-          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl text-yellow-600 mb-2">⭐</div>
-          <h3 class="text-xl font-semibold text-gray-800">Completed</h3>
-          <p class="text-4xl font-bold text-amber-700">3</p>
-        </div>
-        <div
-          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl text-cyan-600 mb-2">🎯</div>
-          <h3 class="text-xl font-semibold text-gray-800">In Progress</h3>
-          <p class="text-4xl font-bold text-cyan-700">4</p>
-        </div>
-        <div
-          class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300">
-          <div class="text-5xl text-cyan-600 mb-2">🎯</div>
-          <h3 class="text-xl font-semibold text-gray-800">Not Started</h3>
-          <p class="text-4xl font-bold text-cyan-700">2</p>
-        </div>
-      </div>
-      <div class="mt-10 text-center">
-        <p class="text-lg text-gray-600">Welcome to your developer dashboard. Use the sidebar to access your courses,
-          track your skill progress, view your learning path, reports, and interact with the chatbot for quick help.</p>
-      </div>
-    </div>
-
-    <div [ngSwitch]="currentPage" class="mt-10">
-      <ng-container *ngSwitchCase="'my-courses'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">playlist_add_check</mat-icon> My Registered
-            Courses</h2>
-          <p>View courses and learning paths you have already registered for.</p>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'mandatory'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">assignment</mat-icon> Mandatory Learning
-            Paths</h2>
-          <p>Courses identified by the system that you are yet to register for.</p>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'optional'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">lightbulb</mat-icon> Optional Recommended
-            Courses</h2>
-          <p>Explore optional courses recommended by the system based on your profile.</p>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'popular'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">trending_up</mat-icon> Popular Courses</h2>
-          <p>See courses popular among your peers and register if interested.</p>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'progress'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">track_changes</mat-icon> My Learning
-            Progress</h2>
-          <p>Track your individual and combined progress on all your enrolled courses.</p>
-        </div>
-      </ng-container>
-
-      <ng-container *ngSwitchCase="'chatbot'">
-        <div class="p-6 text-2xl font-bold text-gray-800 bg-white rounded-xl shadow-lg">
-          <h2 class="text-3xl mb-4 flex items-center"><mat-icon class="mr-2">chat_bubble</mat-icon> My Learning Chatbot
-          </h2>
-          <p>Ask the chatbot questions about your personal learning journey and progress.</p>
-          <p class="text-base text-red-600">Note: This chatbot will NOT show other users' learning data.</p>
-        </div>
-      </ng-container>
-    </div>
+    <router-outlet></router-outlet>
   </main>
 </div>

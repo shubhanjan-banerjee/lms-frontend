@@ -31,6 +31,6 @@ export class LearningPathService {
   }
 
   registerForLearningPath(learningPathId: number): Observable<any> {
-    return this.http.post('/user-learning-paths/', { learning_path_id: learningPathId });
+    return this.http.post(`${this.baseUrl}/${learningPathId}` + '/register', {});
   }
 }

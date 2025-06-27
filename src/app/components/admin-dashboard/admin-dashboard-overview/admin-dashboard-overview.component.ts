@@ -26,20 +26,15 @@ import { LearningPathService } from '../../../services/learning-path.service';
     MatMenuModule,
     MatTooltipModule
   ],
-  selector: 'app-dashboard-overview',
-  templateUrl: './dashboard-overview.component.html',
-  styleUrls: ['./dashboard-overview.component.scss']
+  selector: 'app-admin-dashboard-overview',
+  templateUrl: './admin-dashboard-overview.component.html',
+  styleUrls: ['./admin-dashboard-overview.component.scss']
 })
-export class DashboardOverviewComponent {
+export class AdminDashboardOverviewComponent {
   currentPage: string = 'dashboard';
 
   // Mock data for demonstration purposes
-  developers: Array<{ id: number; name: string; role: string; skills: string[]; proficiency: string }> = [
-    { id: 1, name: 'Alice Johnson', role: 'Frontend Dev', skills: ['React', 'JavaScript', 'HTML', 'CSS'], proficiency: 'Intermediate' },
-    { id: 2, name: 'Bob Williams', role: 'Backend Dev', skills: ['Python', 'SQL', 'FastAPI'], proficiency: 'Advanced' },
-    { id: 3, name: 'Charlie Brown', role: 'DevOps Eng', skills: ['AWS', 'Docker', 'Kubernetes'], proficiency: 'Intermediate' },
-    { id: 4, name: 'Diana Miller', role: 'Fullstack Dev', skills: ['Angular', 'TypeScript', 'Node.js'], proficiency: 'Beginner' },
-  ];
+  developers: Array<{ id: number; name: string; role: string; skills: string[]; proficiency: string }> = [];
 
   skillGaps = [
     { developer: 'Alice Johnson', gapSkill: 'TypeScript', requiredProficiency: 'Intermediate', currentProficiency: 'Beginner' },
