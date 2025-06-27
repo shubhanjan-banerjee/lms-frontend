@@ -1,16 +1,51 @@
-<div class="p-8 bg-white rounded-xl shadow-lg">
-  <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center"><mat-icon class="mr-2">chat</mat-icon> Developer
-    Chatbot</h2>
-  <p class="text-lg text-gray-700 mb-6">Ask the chatbot for help with your courses, skills, or learning path. Try a
-    sample query below.</p>
-  <div class="flex items-center mb-4">
-    <mat-form-field appearance="outline" class="flex-grow">
-      <mat-label>Ask the Chatbot</mat-label>
-      <input matInput placeholder='e.g., "What is my progress in Angular Fundamentals?"'>
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="ml-2"><mat-icon class="mr-1">send</mat-icon> Ask</button>
-  </div>
-  <div class="mt-4 p-3 bg-gray-100 rounded-lg text-gray-700 text-sm italic">
-    <p>Chatbot responses will appear here...</p>
-  </div>
+<div class="flex flex-col h-full bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8 rounded-lg shadow-xl">
+  <mat-card class="flex flex-col flex-grow bg-white rounded-xl shadow-lg overflow-hidden">
+    <!-- Chat Header -->
+    <mat-toolbar class="flex justify-between items-center bg-blue-600 text-white shadow-md rounded-t-xl py-3 px-4">
+      <div class="flex items-center">
+        <mat-icon class="mr-3 text-2xl">chat_bubble_outline</mat-icon>
+        <span class="text-xl font-semibold">LMS Chatbot Assistant</span>
+      </div>
+      <button mat-icon-button class="text-white">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- Messages Container -->
+    <div #messagesContainer class="flex-grow overflow-y-auto p-4 space-y-4 custom-scrollbar">
+      <div *ngFor="let message of messages" [ngClass]="{
+             'flex justify-end': message.sender === 'user',
+             'flex justify-start': message.sender === 'ai'
+           }">
+        <div [ngClass]="{
+               'bg-blue-500 text-white rounded-br-none': message.sender === 'user',
+               'bg-gray-200 text-gray-800 rounded-bl-none': message.sender === 'ai'
+             }" class="max-w-[75%] md:max-w-[60%] p-3 rounded-xl shadow-sm relative">
+          <p class="text-sm break-words">{{ message.text }}</p>
+          <div [ngClass]="{
+                 'text-right text-white': message.sender === 'user',
+                 'text-left text-gray-600': message.sender === 'ai'
+               }" class="text-xs mt-1 opacity-75">
+            {{ formatTimestamp(message.timestamp) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Input -->
+    <mat-card-content class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+      <form class="flex items-center gap-4" (ngSubmit)="sendMessage()">
+        <mat-form-field appearance="outline" class="flex-grow m-0">
+          <mat-label>Type your message...</mat-label>
+          <input matInput [formControl]="messageControl" (keydown.enter)="sendMessage()"
+            placeholder="Ask me anything...">
+          <mat-error *ngIf="messageControl.invalid && messageControl.touched">Message cannot be empty.</mat-error>
+        </mat-form-field>
+        <button mat-fab color="primary" type="submit"
+          [disabled]="messageControl.invalid || !messageControl.value?.trim()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
