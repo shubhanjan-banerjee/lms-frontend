@@ -8,6 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
+
+import { UserService } from '../../../services/user.service';
+import { LearningPathService } from '../../../services/learning-path.service';
 
 @Component({
   standalone: true,
@@ -30,11 +34,11 @@ export class DashboardOverviewComponent {
   currentPage: string = 'dashboard';
 
   // Mock data for demonstration purposes
-  developers = [
-    { id: 'dev001', name: 'Alice Johnson', role: 'Frontend Dev', skills: ['React', 'JavaScript', 'HTML', 'CSS'], proficiency: 'Intermediate' },
-    { id: 'dev002', name: 'Bob Williams', role: 'Backend Dev', skills: ['Python', 'SQL', 'FastAPI'], proficiency: 'Advanced' },
-    { id: 'dev003', name: 'Charlie Brown', role: 'DevOps Eng', skills: ['AWS', 'Docker', 'Kubernetes'], proficiency: 'Intermediate' },
-    { id: 'dev004', name: 'Diana Miller', role: 'Fullstack Dev', skills: ['Angular', 'TypeScript', 'Node.js'], proficiency: 'Beginner' },
+  developers: Array<{ id: number; name: string; role: string; skills: string[]; proficiency: string }> = [
+    { id: 1, name: 'Alice Johnson', role: 'Frontend Dev', skills: ['React', 'JavaScript', 'HTML', 'CSS'], proficiency: 'Intermediate' },
+    { id: 2, name: 'Bob Williams', role: 'Backend Dev', skills: ['Python', 'SQL', 'FastAPI'], proficiency: 'Advanced' },
+    { id: 3, name: 'Charlie Brown', role: 'DevOps Eng', skills: ['AWS', 'Docker', 'Kubernetes'], proficiency: 'Intermediate' },
+    { id: 4, name: 'Diana Miller', role: 'Fullstack Dev', skills: ['Angular', 'TypeScript', 'Node.js'], proficiency: 'Beginner' },
   ];
 
   skillGaps = [
@@ -43,38 +47,111 @@ export class DashboardOverviewComponent {
     { developer: 'Charlie Brown', gapSkill: 'Terraform', requiredProficiency: 'Advanced', currentProficiency: 'Intermediate' },
   ];
 
-  learningPaths = [
-    {
-      id: 'lp001',
-      title: 'React Level 1',
-      description: 'Deep dive into React hooks, context API, and performance optimization.',
-      image: 'https://placehold.co/400x250/06B6D4/FFFFFF?text=React+Dev',
-      skillsCovered: ['React', 'JavaScript', 'State Management'],
-      status: 'Active',
-    },
-    {
-      id: 'lp002',
-      title: 'Dot Net Level 1',
-      description: 'Build scalable and robust APIs using .Net features',
-      image: 'https://placehold.co/400x250/FACC15/0F172A?text=Dot Net Dev',
-      skillsCovered: ['Python', 'FastAPI', 'REST APIs'],
-      status: 'New',
-    },
-    {
-      id: 'lp003',
-      title: 'Cloud AWS Fundamentals Level 1',
-      description: 'Understand the core concepts of cloud security in AWS.',
-      image: 'https://placehold.co/400x250/10B981/FFFFFF?text=AWS+Basics',
-      skillsCovered: ['AWS', 'Cloud Security'],
-      status: 'Popular',
-    },
-    {
-      id: 'lp004',
-      title: 'Angular Level 2',
-      description: 'Master state management in Angular applications using NgRx.',
-      image: 'https://placehold.co/400x250/EF4444/FFFFFF?text=Angular+Dev',
-      skillsCovered: ['Angular', 'NgRx', 'TypeScript'],
-      status: 'Upcoming',
-    },
+  learningPaths: any[] = [];
+  carouselIndex = 0;
+  carouselSize = 3;
+
+  private colorPalette = [
+    '06B6D4', // cyan
+    'F59E42', // orange
+    '10B981', // green
+    '6366F1', // indigo
+    'F43F5E', // pink
+    'FBBF24', // yellow
+    '8B5CF6', // violet
+    '3B82F6', // blue
+    'EF4444', // red
+    '14B8A6', // teal
+    'A3E635', // lime
+    'F472B6', // fuchsia
+    'F87171', // rose
+    'FACC15', // amber
+    '4ADE80', // emerald
+    '818CF8', // indigo-light
+    'F472B6', // pink-light
+    'FCD34D', // yellow-light
+    '60A5FA', // blue-light
+    '34D399'  // green-light
   ];
+
+  constructor(private userService: UserService, private learningPathService: LearningPathService, private router: Router) {
+    this.loadTopDevelopers();
+    this.loadLearningPaths();
+  }
+
+  loadTopDevelopers() {
+    this.userService.getUsers(0, 10).subscribe(users => {
+      this.developers = users.map(u => ({
+        id: u.id,
+        name: u.first_name + ' ' + u.last_name,
+        role: u.current_project_role?.name || u.role,
+        skills: u.user_skills?.map(s => `${s.skill_name} (${s.proficiency_level_name})`) || [],
+        proficiency: u.user_skills && u.user_skills.length ? this.getTopProficiency(u.user_skills) : 'N/A'
+      }))
+        .filter(u => u.role && u.skills.length > 0)
+        .filter(u => {
+          return u.role.toLowerCase().includes('developer');
+        });
+    });
+  }
+
+  loadLearningPaths() {
+    this.learningPathService.getLearningPaths({
+      limit: 20
+    }).subscribe(res => {
+      this.learningPaths = res;
+      this.assignColorsToLearningPaths();
+    });
+  }
+
+  private getRandomColor(): string {
+    return this.colorPalette[Math.floor(Math.random() * this.colorPalette.length)];
+  }
+
+  private assignColorsToLearningPaths() {
+    if (Array.isArray(this.learningPaths)) {
+      this.learningPaths.forEach(path => {
+        if (!path._color) {
+          path._color = this.getRandomColor();
+        }
+      });
+    }
+  }
+
+  getTopProficiency(skills: any[]): string {
+    // Example: return the highest proficiency level name
+    const levels = skills.map(s => s.proficiency_level_name).filter(Boolean);
+    return levels[0] || 'N/A';
+  }
+
+  nextCarousel() {
+    if (this.learningPaths.length > 0) {
+      this.carouselIndex = (this.carouselIndex + this.carouselSize) % this.learningPaths.length;
+    }
+  }
+
+  prevCarousel() {
+    if (this.learningPaths.length > 0) {
+      this.carouselIndex = (this.carouselIndex - this.carouselSize + this.learningPaths.length) % this.learningPaths.length;
+    }
+  }
+
+  goToEmployees() {
+    this.router.navigate(['/admin/employees']);
+  }
+
+  goToLearningPath() {
+    this.router.navigate(['/admin/learning-paths']);
+  }
+
+  goToLearningPathDetails(id: number) {
+    this.router.navigate(['/admin/learning-paths', id]);
+  }
+
+  getLearningPathImageUrl(path: any): string {
+    if (path.image_url) return path.image_url;
+    const color = path._color || 'CCCCCC';
+    const text = encodeURIComponent(path.name || 'No Name');
+    return `https://placehold.co/400x250/${color}/FFFFFF?text=${text}`;
+  }
 }

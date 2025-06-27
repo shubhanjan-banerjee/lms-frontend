@@ -17,6 +17,14 @@ import { SkillProgressComponent } from './components/developer-dashboard/skill-p
 import { LearningPathComponent } from './components/developer-dashboard/learning-path/learning-path.component';
 import { ReportsComponent as DevReportsComponent } from './components/developer-dashboard/reports/reports.component';
 import { ChatbotComponent as DevChatbotComponent } from './components/developer-dashboard/chatbot/chatbot.component';
+import { AdminLearningPathsListComponent } from './components/admin-dashboard/learning-paths-list/learning-paths-list.component';
+import { AdminLearningPathDetailsComponent } from './components/admin-dashboard/learning-path-details/learning-path-details.component';
+import { AdminCoursesListComponent } from './components/admin-dashboard/courses-list/courses-list.component';
+import { AdminCourseDetailsComponent } from './components/admin-dashboard/course-details/course-details.component';
+import { DeveloperLearningPathsListComponent } from './components/developer-dashboard/learning-paths-list/learning-paths-list.component';
+import { DeveloperLearningPathDetailsComponent } from './components/developer-dashboard/learning-path-details/learning-path-details.component';
+import { DeveloperCoursesListComponent } from './components/developer-dashboard/courses-list/courses-list.component';
+import { DeveloperCourseDetailsComponent } from './components/developer-dashboard/course-details/course-details.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -31,7 +39,10 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardOverviewComponent },
       { path: 'employees', component: EmployeesComponent },
       { path: 'skills', component: SkillsRolesComponent },
-      { path: 'learning-paths', component: LearningPathsComponent },
+      { path: 'learning-paths', component: AdminLearningPathsListComponent },
+      { path: 'learning-paths/:id', component: AdminLearningPathDetailsComponent },
+      { path: 'courses', component: AdminCoursesListComponent },
+      { path: 'courses/:id', component: AdminCourseDetailsComponent },
       { path: 'reports', component: ReportsComponent },
       { path: 'chatbot', component: ChatbotComponent },
     ]
@@ -45,7 +56,10 @@ export const routes: Routes = [
       { path: '', redirectTo: 'my-courses', pathMatch: 'full' },
       { path: 'my-courses', component: MyCoursesComponent },
       { path: 'skill-progress', component: SkillProgressComponent },
-      { path: 'learning-path', component: LearningPathComponent },
+      { path: 'learning-paths', component: DeveloperLearningPathsListComponent },
+      { path: 'learning-paths/:id', component: DeveloperLearningPathDetailsComponent },
+      { path: 'courses', component: DeveloperCoursesListComponent },
+      { path: 'courses/:id', component: DeveloperCourseDetailsComponent },
       { path: 'reports', component: DevReportsComponent },
       { path: 'chatbot', component: DevChatbotComponent },
     ]

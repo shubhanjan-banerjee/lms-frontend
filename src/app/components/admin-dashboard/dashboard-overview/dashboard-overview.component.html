@@ -77,7 +77,8 @@
           </table>
         </div>
         <button mat-raised-button color="primary"
-          class="mt-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300">
+          class="mt-4 px-4 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-300"
+          (click)="goToEmployees()">
           Manage Employees
         </button>
       </div>
@@ -129,37 +130,38 @@
       <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
         <mat-icon class="mr-2 text-green-500">library_books</mat-icon> Learning Paths
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <mat-card *ngFor="let path of learningPaths"
-          class="bg-gray-50 rounded-xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer border border-gray-200">
-          <img [src]="path.image" [alt]="path.title" class="w-full h-40 object-cover"
-            onerror="this.onerror=null;this.src='https://placehold.co/400x250/CCCCCC/666666?text=Image+Error';" />
-          <mat-card-content class="p-4">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ path.title }}</h3>
-            <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ path.description }}</p>
-            <div class="flex flex-wrap gap-1 mb-3">
-              <span *ngFor="let skill of path.skillsCovered"
-                class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">
-                {{ skill }}
-              </span>
-            </div>
-            <span [ngClass]="{
-                            'bg-green-100 text-green-800': path.status === 'Active',
-                            'bg-blue-100 text-blue-800': path.status === 'New',
-                            'bg-amber-100 text-amber-800': path.status === 'Popular',
-                            'bg-gray-100 text-gray-800': path.status === 'Upcoming'
-                        }" class="px-3 py-1 text-sm font-semibold rounded-full">
-              {{ path.status }}
-            </span>
-            <button mat-raised-button color="accent"
-              class="mt-4 w-full bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition duration-300">
-              View Details
-            </button>
-          </mat-card-content>
-        </mat-card>
+      <div class="flex items-center justify-between mb-4">
+        <button mat-icon-button (click)="prevCarousel()" [disabled]="learningPaths.length <= carouselSize">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 flex-1">
+          <mat-card *ngFor="let path of learningPaths.slice(carouselIndex, carouselIndex + carouselSize)"
+            class="bg-gray-50 rounded-xl shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer border border-gray-200">
+            <img [src]="getLearningPathImageUrl(path)" [alt]="path.name" class="w-full h-40 object-cover"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x250/CCCCCC/666666?text=Image+Error';" />
+            <mat-card-content class="p-4">
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ path.name }}</h3>
+              <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ path.description }}</p>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span *ngFor="let course of path.courses"
+                  class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">
+                  {{ course.course?.name }}
+                </span>
+              </div>
+              <button mat-raised-button color="accent" (click)="goToLearningPathDetails(path.id)"
+                class="mt-4 w-full bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition duration-300">
+                View Details
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <button mat-icon-button (click)="nextCarousel()" [disabled]="learningPaths.length <= carouselSize">
+          <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
       <button mat-raised-button color="primary"
-        class="mt-6 px-6 py-3 bg-fuchsia-600 text-white font-semibold rounded-lg shadow-md hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 transition duration-300 text-lg">
+        class="mt-6 px-6 py-3 bg-fuchsia-600 text-white font-semibold rounded-lg shadow-md hover:bg-fuchsia-700 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:ring-offset-2 transition duration-300 text-lg"
+        (click)="goToLearningPath()">
         Manage Learning Paths
       </button>
     </div>

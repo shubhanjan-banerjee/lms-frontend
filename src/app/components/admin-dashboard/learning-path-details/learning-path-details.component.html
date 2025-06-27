@@ -1,0 +1,33 @@
+<div class="learning-path-details p-8 max-w-3xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100">
+  <div *ngIf="loading" class="loader text-center py-10 text-lg font-semibold text-gray-500">Loading...</div>
+  <ng-container *ngIf="!loading && learningPath">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-3xl font-extrabold text-gray-900">{{ learningPath.name }}</h2>
+      <span class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-3 py-1 rounded-full">#{{ learningPath.id
+        }}</span>
+    </div>
+    <div class="text-gray-700 text-lg mb-6">{{ learningPath.description }}</div>
+    <div class="mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-3">Courses in this Learning Path</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-50 rounded-xl shadow p-4 flex flex-col border border-gray-200"
+          *ngFor="let c of learningPath.courses">
+          <div class="flex items-center justify-between mb-1">
+            <div class="font-semibold text-gray-900">{{ c.course?.name }}</div>
+            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded-full">ID: {{ c.course?.id
+              }}</span>
+          </div>
+          <div class="text-gray-600 text-sm mb-2 line-clamp-2">{{ c.course?.description }}</div>
+          <div class="flex gap-2 text-xs text-gray-500 mb-2">
+            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Provider: {{ c.course?.provider }}</span>
+            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Duration: {{ c.course?.duration_hours
+              }}h</span>
+          </div>
+          <button
+            class="mt-auto px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-semibold shadow hover:bg-emerald-700 transition"
+            (click)="goToCourse(c.course?.id)">View Course</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
