@@ -7,13 +7,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
+import { ToastrService } from '../toastr/toastr.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -21,7 +24,6 @@ import { UserService } from '../../services/user.service';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatIconModule,
-    NgIf,
     RouterLink
   ],
   providers: [UserService],
@@ -40,14 +42,14 @@ export class RegisterComponent {
   isLoading = false;
   errorMsg = '';
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) { }
 
   onSubmit() {
     if (this.registerForm.valid && this.passwordsMatch()) {
       this.isLoading = true;
       this.errorMsg = '';
       const { sso_id, email, first_name, last_name, password } = this.registerForm.value;
-      this.userService.createUser({
+      this.authService.register({
         sso_id: sso_id || '',
         email: email || '',
         first_name: first_name || '',
@@ -56,12 +58,12 @@ export class RegisterComponent {
       }).subscribe({
         next: () => {
           this.isLoading = false;
-          alert('Registration successful! You can now log in.');
+          this.toastr.show('Registration successful! You can now log in.', 'success');
           this.router.navigate(['/login']);
         },
         error: (err: any) => {
           this.isLoading = false;
-          this.errorMsg = 'Registration failed. Please check your details.';
+          this.toastr.show('Registration failed. Please check your details.', 'error');
         }
       });
     } else {

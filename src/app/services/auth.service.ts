@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Token } from '../models/token.model';
 import { environment } from '../../environments/environment';
+import { UserCreate, UserResponse } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class AuthService {
       body.toString(),
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
+  }
+
+  register(data: UserCreate): Observable<UserResponse> {
+    return this.http.post<UserResponse>(`${this.apiUrl}/register`, data);
   }
 
   setToken(token: Token) {

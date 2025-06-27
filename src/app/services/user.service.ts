@@ -10,23 +10,23 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<UserResponse[]> {
-    return this.http.get<UserResponse[]>(`${this.apiUrl}/users`);
+  getUsers(skip = 0, limit = 10): Observable<UserResponse[]> {
+    return this.http.get<UserResponse[]>(`${this.apiUrl}/admin/users/?skip=${skip}&limit=${limit}`);
   }
 
   getUser(id: number): Observable<UserResponse> {
-    return this.http.get<UserResponse>(`${this.apiUrl}/users/${id}`);
+    return this.http.get<UserResponse>(`${this.apiUrl}/admin/users/${id}`);
   }
 
   createUser(data: UserCreate): Observable<UserResponse> {
-    return this.http.post<UserResponse>(`${this.apiUrl}/users`, data);
+    return this.http.post<UserResponse>(`${this.apiUrl}/admin/users/`, data);
   }
 
   updateUser(id: number, data: UserUpdate): Observable<UserResponse> {
-    return this.http.patch<UserResponse>(`${this.apiUrl}/users/${id}`, data);
+    return this.http.put<UserResponse>(`${this.apiUrl}/admin/users/${id}`, data);
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/users/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/admin/users/${id}`);
   }
 }

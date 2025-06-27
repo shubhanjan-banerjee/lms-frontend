@@ -1,58 +1,114 @@
 <div class="p-8 bg-white rounded-xl shadow-lg">
   <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center"><mat-icon class="mr-2">group</mat-icon> Manage
-    Employees</h2>
-  <p class="text-lg text-gray-700 mb-6">View, edit, and manage employee profiles, assign roles, and update skills. Use
-    the table below to search and filter employees.</p>
-  <div class="overflow-x-auto">
-    <table class="min-w-full divide-y divide-gray-200" *ngIf="employees.length > 0">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Associate ID</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Skill Requirement
-          </th>
-          <ng-container *ngFor="let tech of techHeaders">
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ tech }}</th>
-          </ng-container>
-        </tr>
-      </thead>
-      <tbody class="bg-white divide-y divide-gray-200">
-        <tr *ngFor="let emp of employees">
-          <td class="px-6 py-4 whitespace-nowrap">{{ emp.associateId }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ emp.associateName }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ emp.projectRole }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ emp.skillRequirement }}</td>
-          <ng-container *ngFor="let tech of techHeaders">
-            <td class="px-6 py-4 whitespace-nowrap text-center">
-              {{ getProficiency(emp, tech) }}
+    Employees
+  </h2>
+  <p class="text-lg text-gray-700 mb-6">View, edit, and manage employee profiles. Use the table below to search and
+    filter employees.</p>
+  <div class=" flex flex-row justify-between mb-6">
+    <button mat-raised-button class="float-right" color="primary" class="mt-6" (click)="openAddForm()">
+      Add New Employee
+      <app-inline-loader [loading]="inlineLoading"></app-inline-loader>
+    </button>
+    <button mat-raised-button color="primary" (click)="openBulkUploadDialog()">
+      Upload Bulk Employee
+      <app-inline-loader [loading]="inlineLoading"></app-inline-loader>
+    </button>
+  </div>
+  <div class="relative">
+    <app-block-loader [loading]="isBlockLoading"></app-block-loader>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200" *ngIf="users.length > 0">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SSO ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let user of users">
+            <td class="px-6 py-4 whitespace-nowrap">{{ user.id }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ user.sso_id }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ user.first_name }} {{ user.last_name }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ user.role }}</td>
+            <td class="px-6 py-4 whitespace-nowrap flex gap-2">
+              <button mat-stroked-button color="primary" (click)="openEditForm(user)">Edit</button>
+              <button mat-stroked-button color="warn" (click)="deleteUser(user)">Delete</button>
             </td>
-          </ng-container>
-        </tr>
-      </tbody>
-    </table>
-    <div *ngIf="employees.length === 0" class="text-center text-gray-500 py-8">
-      No employee data available. Please upload an Excel file to add employees.
+          </tr>
+        </tbody>
+      </table>
+      <mat-paginator [length]="totalUsers" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="loadUsers($event)">
+      </mat-paginator>
+      <div *ngIf="users.length === 0" class="text-center text-gray-500 py-8">
+        No user data available.
+      </div>
     </div>
   </div>
-  <button mat-raised-button color="primary" class="mt-6" (click)="showUploadDialog = true">Add New Employee</button>
 
-  <ng-template #uploadDialog>
-    <div class="p-6 bg-white rounded-xl shadow-lg w-96">
-      <h3 class="text-xl font-bold mb-4">Upload Employees via Excel</h3>
-      <form (ngSubmit)="uploadFile()">
-        <input type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" required class="mb-4" />
+  <div *ngIf="showForm" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div class="relative bg-white rounded-xl shadow-lg p-8 w-96">
+      <h3 class="text-xl font-bold mb-4">{{ isEdit ? 'Edit' : 'Add' }} Employee</h3>
+      <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+        <mat-form-field class="w-full mb-4">
+          <mat-label>SSO ID</mat-label>
+          <input matInput formControlName="sso_id" [readonly]="isEdit">
+        </mat-form-field>
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="w-full mb-4">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="first_name">
+        </mat-form-field>
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="last_name">
+        </mat-form-field>
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" [type]="'password'" [readonly]="isEdit">
+        </mat-form-field>
+        <mat-form-field class="w-full mb-4">
+          <mat-label>Role</mat-label>
+          <input matInput formControlName="role">
+        </mat-form-field>
         <div class="flex justify-end gap-2 mt-4">
-          <button mat-stroked-button type="button" (click)="showUploadDialog = false">Cancel</button>
-          <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile">Upload</button>
+          <button mat-stroked-button type="button" (click)="closeForm()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit">
+            {{ isEdit ? 'Update' : 'Create' }}
+            <app-inline-loader [loading]="inlineLoading"></app-inline-loader>
+          </button>
         </div>
       </form>
     </div>
-  </ng-template>
+  </div>
 
-  <div *ngIf="showUploadDialog" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-    <div class="relative">
-      <ng-container *ngTemplateOutlet="uploadDialog"></ng-container>
+  <div *ngIf="showBulkUploadDialog" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div class="relative bg-white rounded-xl shadow-lg p-8 w-96">
+      <h3 class="text-xl font-bold mb-4">Upload Employees via Excel</h3>
+      <app-block-loader [loading]="bulkUploadLoading"></app-block-loader>
+      <form (ngSubmit)="uploadFile()">
+        <input type="file" accept=".xlsx,.xls" (change)="onFileSelected($event)" required class="mb-4"
+          [disabled]="bulkUploadLoading" />
+        <div class="flex justify-end gap-2 mt-4">
+          <button mat-stroked-button type="button" (click)="closeBulkUploadDialog()" [disabled]="bulkUploadLoading">
+            Cancel
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile || bulkUploadLoading">
+            Upload
+            <app-inline-loader [loading]="bulkUploadLoading"></app-inline-loader>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
+
+  <app-message-dialog [open]="messageDialogOpen" [summary]="messageDialogSummary" (click)="closeMessageDialog()">
+  </app-message-dialog>
 </div>
