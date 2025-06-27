@@ -239,6 +239,41 @@
               "default": 100,
               "title": "Limit"
             }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Search by user name, email, or SSO ID",
+              "title": "Search"
+            },
+            "description": "Search by user name, email, or SSO ID"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort by field name",
+              "default": "id",
+              "title": "Sort By"
+            },
+            "description": "Sort by field name"
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort order: asc or desc",
+              "default": "asc",
+              "title": "Sort Order"
+            },
+            "description": "Sort order: asc or desc"
           }
         ],
         "responses": {
@@ -247,11 +282,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserResponse"
-                  },
-                  "title": "Response Read All Users Admin Users  Get"
+                  "$ref": "#/components/schemas/PaginatedResponse_UserResponse_"
                 }
               }
             }
@@ -524,11 +555,6 @@
         ],
         "summary": "Get Skills",
         "operationId": "get_skills_admin_skills__get",
-        "security": [
-          {
-            "OAuth2PasswordBearer": []
-          }
-        ],
         "parameters": [
           {
             "name": "skip",
@@ -549,6 +575,41 @@
               "default": 100,
               "title": "Limit"
             }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Search by skill name or description",
+              "title": "Search"
+            },
+            "description": "Search by skill name or description"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort by field name",
+              "default": "id",
+              "title": "Sort By"
+            },
+            "description": "Sort by field name"
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort order: asc or desc",
+              "default": "asc",
+              "title": "Sort Order"
+            },
+            "description": "Sort order: asc or desc"
           }
         ],
         "responses": {
@@ -557,11 +618,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SkillResponse"
-                  },
-                  "title": "Response Get Skills Admin Skills  Get"
+                  "$ref": "#/components/schemas/PaginatedResponse_SkillResponse_"
                 }
               }
             }
@@ -1414,6 +1471,41 @@
               "default": 100,
               "title": "Limit"
             }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Search by course name or description",
+              "title": "Search"
+            },
+            "description": "Search by course name or description"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort by field name",
+              "default": "id",
+              "title": "Sort By"
+            },
+            "description": "Sort by field name"
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort order: asc or desc",
+              "default": "asc",
+              "title": "Sort Order"
+            },
+            "description": "Sort order: asc or desc"
           }
         ],
         "responses": {
@@ -1422,11 +1514,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CourseResponse"
-                  },
-                  "title": "Response Get Courses Courses  Get"
+                  "$ref": "#/components/schemas/PaginatedResponse_CourseResponse_"
                 }
               }
             }
@@ -1642,6 +1730,41 @@
               "default": 100,
               "title": "Limit"
             }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Search by learning path name or description",
+              "title": "Search"
+            },
+            "description": "Search by learning path name or description"
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort by field name",
+              "default": "id",
+              "title": "Sort By"
+            },
+            "description": "Sort by field name"
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Sort order: asc or desc",
+              "default": "asc",
+              "title": "Sort Order"
+            },
+            "description": "Sort order: asc or desc"
           }
         ],
         "responses": {
@@ -1650,11 +1773,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LearningPathResponse"
-                  },
-                  "title": "Response Get Learning Paths Learning Paths  Get"
+                  "$ref": "#/components/schemas/PaginatedResponse_LearningPathResponse_"
                 }
               }
             }
@@ -1803,6 +1922,58 @@
           }
         }
       }
+    },
+    "/learning-paths/{learning_path_id}/register": {
+      "post": {
+        "tags": [
+          "learning-paths"
+        ],
+        "summary": "Register User To Learning Path",
+        "operationId": "register_user_to_learning_path_learning_paths__learning_path_id__register_post",
+        "parameters": [
+          {
+            "name": "learning_path_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Learning Path Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_register_user_to_learning_path_learning_paths__learning_path_id__register_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLearningPathResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1865,6 +2036,20 @@
           "password"
         ],
         "title": "Body_login_for_access_token_token_post"
+      },
+      "Body_register_user_to_learning_path_learning_paths__learning_path_id__register_post": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id",
+            "description": "User ID to register"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id"
+        ],
+        "title": "Body_register_user_to_learning_path_learning_paths__learning_path_id__register_post"
       },
       "Body_upload_users_admin_userupload__post": {
         "properties": {
@@ -2251,6 +2436,90 @@
           "id"
         ],
         "title": "LearningPathResponse"
+      },
+      "PaginatedResponse_CourseResponse_": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CourseResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "PaginatedResponse[CourseResponse]"
+      },
+      "PaginatedResponse_LearningPathResponse_": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/LearningPathResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "PaginatedResponse[LearningPathResponse]"
+      },
+      "PaginatedResponse_SkillResponse_": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SkillResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "PaginatedResponse[SkillResponse]"
+      },
+      "PaginatedResponse_UserResponse_": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/UserResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "items"
+        ],
+        "title": "PaginatedResponse[UserResponse]"
       },
       "ProficiencyLevelCreate": {
         "properties": {

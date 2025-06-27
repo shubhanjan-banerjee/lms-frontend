@@ -10,8 +10,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(skip = 0, limit = 10): Observable<UserResponse[]> {
-    return this.http.get<UserResponse[]>(`${this.apiUrl}/admin/users/?skip=${skip}&limit=${limit}`);
+  getUsers(skip = 0, limit = 10): Observable<{ items: UserResponse[], total: number }> {
+    return this.http.get<any>(`${this.apiUrl}/admin/users/?skip=${skip}&limit=${limit}`);;
   }
 
   getUser(id: number): Observable<UserResponse> {

@@ -73,6 +73,8 @@ export class DashboardOverviewComponent {
     '60A5FA', // blue-light
     '34D399'  // green-light
   ];
+  totalLearningPaths = 0;
+  totalDevelopers = 0;
 
   constructor(private userService: UserService, private learningPathService: LearningPathService, private router: Router) {
     this.loadTopDevelopers();
@@ -80,8 +82,9 @@ export class DashboardOverviewComponent {
   }
 
   loadTopDevelopers() {
-    this.userService.getUsers(0, 10).subscribe(users => {
-      this.developers = users.map(u => ({
+    this.userService.getUsers(0, 10).subscribe(resp => {
+      this.totalDevelopers = resp.total || 0; // Assuming the API returns total count
+      this.developers = resp.items.map(u => ({
         id: u.id,
         name: u.first_name + ' ' + u.last_name,
         role: u.current_project_role?.name || u.role,
@@ -99,7 +102,8 @@ export class DashboardOverviewComponent {
     this.learningPathService.getLearningPaths({
       limit: 20
     }).subscribe(res => {
-      this.learningPaths = res;
+      this.learningPaths = res.items || [];
+      this.totalLearningPaths = res.total || 0; // Assuming the API returns total count
       this.assignColorsToLearningPaths();
     });
   }

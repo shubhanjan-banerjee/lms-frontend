@@ -141,9 +141,9 @@ export class EmployeesComponent {
     const skip = event ? event.pageIndex * event.pageSize : this.pageIndex * this.pageSize;
     const limit = event ? event.pageSize : this.pageSize;
     this.userService.getUsers(skip, limit).subscribe({
-      next: (users) => {
-        this.users = users;
-        this.totalUsers = users.length < limit ? skip + users.length : skip + limit + 1; // crude estimate
+      next: (resp) => {
+        this.users = resp.items || [];
+        this.totalUsers = resp.total || 0; // Assuming the API returns total count
         this.isBlockLoading = false;
       },
       error: () => {
