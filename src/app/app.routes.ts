@@ -1,28 +1,26 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { DeveloperDashboardComponent } from './components/developer-dashboard/developer-dashboard.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { RoleGuard } from './services/role.guard';
-import { AccessDeniedComponent } from './components/access-denied.component';
-import { EmployeesComponent } from './components/admin-dashboard/employees/employees.component';
-import { SkillsRolesComponent } from './components/admin-dashboard/skills-roles/skills-roles.component';
-import { ReportsComponent } from './components/admin-dashboard/reports/reports.component';
-import { ChatbotComponent } from './components/admin-dashboard/chatbot/chatbot.component';
-import { MyCoursesComponent } from './components/developer-dashboard/my-courses/my-courses.component';
-import { SkillProgressComponent } from './components/developer-dashboard/skill-progress/skill-progress.component';
-import { ReportsComponent as DevReportsComponent } from './components/developer-dashboard/reports/reports.component';
-import { ChatbotComponent as DevChatbotComponent } from './components/developer-dashboard/chatbot/chatbot.component';
-import { AdminLearningPathsListComponent } from './components/admin-dashboard/learning-paths-list/learning-paths-list.component';
-import { AdminLearningPathDetailsComponent } from './components/admin-dashboard/learning-path-details/learning-path-details.component';
-import { AdminCoursesListComponent } from './components/admin-dashboard/courses-list/courses-list.component';
-import { AdminCourseDetailsComponent } from './components/admin-dashboard/course-details/course-details.component';
-import { DeveloperLearningPathsListComponent } from './components/developer-dashboard/learning-paths-list/learning-paths-list.component';
-import { DeveloperLearningPathDetailsComponent } from './components/developer-dashboard/learning-path-details/learning-path-details.component';
-import { DeveloperCoursesListComponent } from './components/developer-dashboard/courses-list/courses-list.component';
-import { DeveloperCourseDetailsComponent } from './components/developer-dashboard/course-details/course-details.component';
-import { AdminDashboardOverviewComponent } from './components/admin-dashboard/admin-dashboard-overview/admin-dashboard-overview.component';
-import { DeveloperDashboardOverviewComponent } from './components/developer-dashboard/developer-dashboard-overview/developer-dashboard-overview.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard.component';
+import { AdminDashboardOverviewComponent } from './components/admin/admin-dashboard-overview/admin-dashboard-overview.component';
+import { EmployeesComponent } from './components/admin/employees/employees.component';
+import { SkillsRolesComponent } from './components/admin/skills-roles/skills-roles.component';
+import { AdminLearningPathsListComponent } from './components/admin/learning-paths-list/learning-paths-list.component';
+import { AdminLearningPathDetailsComponent } from './components/admin/learning-path-details/learning-path-details.component';
+import { AdminCoursesListComponent } from './components/admin/courses-list/courses-list.component';
+import { AdminCourseDetailsComponent } from './components/admin/course-details/course-details.component';
+import { ReportsComponent } from './components/admin/reports/reports.component';
+import { ChatbotComponent } from './components/shared/chatbot/chatbot.component';
+import { DeveloperDashboardComponent } from './components/developer/developer-dashboard.component';
+import { DeveloperDashboardOverviewComponent } from './components/developer/developer-dashboard-overview/developer-dashboard-overview.component';
+import { MyCoursesComponent } from './components/developer/my-courses/my-courses.component';
+import { SkillProgressComponent } from './components/developer/skill-progress/skill-progress.component';
+import { DeveloperLearningPathsListComponent } from './components/developer/learning-paths-list/learning-paths-list.component';
+import { DeveloperLearningPathDetailsComponent } from './components/developer/learning-path-details/learning-path-details.component';
+import { DeveloperCoursesListComponent } from './components/developer/courses-list/courses-list.component';
+import { DeveloperCourseDetailsComponent } from './components/developer/course-details/course-details.component';
+import { AccessDeniedComponent } from './components/shared/access-denied.component';
 
 export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
@@ -59,8 +57,8 @@ export const routes: Routes = [
       { path: 'learning-paths/:id', component: DeveloperLearningPathDetailsComponent },
       { path: 'courses', component: DeveloperCoursesListComponent },
       { path: 'courses/:id', component: DeveloperCourseDetailsComponent },
-      { path: 'reports', component: DevReportsComponent },
-      { path: 'chatbot', component: DevChatbotComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'chatbot', component: ChatbotComponent },
     ]
   },
   { path: 'access-denied', component: AccessDeniedComponent },

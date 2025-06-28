@@ -4,17 +4,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { EmployeeUploadService } from '../../../services/employee-upload.service';
-import { ToastrService } from '../../toastr/toastr.service';
+import { ToastrService } from '../../shared/toastr/toastr.service';
 import { UserService } from '../../../services/user.service';
 import { UserResponse, UserCreate, UserUpdate } from '../../../models/user.model';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { ConfirmationService } from '../../confirmation-dialog/confirmation.service';
-import { BlockLoaderComponent } from '../../loader/block-loader.component';
-import { InlineLoaderComponent } from '../../loader/inline-loader.component';
-import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
+import { BlockLoaderComponent } from '../../shared/loader/block-loader.component';
+import { InlineLoaderComponent } from '../../shared/loader/inline-loader.component';
+import { MessageDialogComponent } from '../../shared/message-dialog/message-dialog.component';
+import { ConfirmationService } from '../../shared/confirmation-dialog/confirmation.service';
 
 interface Proficiency {
   technology: string;
@@ -33,8 +33,17 @@ interface Employee {
   selector: 'app-employees',
   standalone: true,
   imports: [
-    CommonModule, MatIconModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatPaginatorModule,
-    BlockLoaderComponent, InlineLoaderComponent, MessageDialogComponent
+    CommonModule,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    BlockLoaderComponent,
+    InlineLoaderComponent,
+    MessageDialogComponent
   ],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss']

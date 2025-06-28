@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LearningPathService } from '../../../services/learning-path.service';
-import { ToastrService } from '../../toastr/toastr.service';
-import { LoaderService } from '../../loader/loader.service';
+import { ToastrService } from '../../shared/toastr/toastr.service';
+import { LoaderService } from '../../shared/loader/loader.service';
 
 @Component({
   selector: 'app-developer-learning-path-details',

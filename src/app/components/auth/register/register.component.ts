@@ -8,9 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
-import { ToastrService } from '../toastr/toastr.service';
+import { UserService } from '../../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
+import { ToastrService } from '../../shared/toastr/toastr.service';
 
 @Component({
   selector: 'app-register',

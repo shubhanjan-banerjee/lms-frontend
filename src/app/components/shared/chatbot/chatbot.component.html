@@ -34,14 +34,14 @@
 
     <!-- Message Input -->
     <mat-card-content class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
-      <form class="flex items-center gap-4" (ngSubmit)="sendMessage()">
-        <mat-form-field appearance="outline" class="flex-grow m-0">
-          <mat-label>Type your message...</mat-label>
+      <!-- align-items: flex-start; in tailwind -->
+      <form class="flex items-start gap-4 mt-8" (ngSubmit)="sendMessage()">
+        <mat-form-field appearance="outline" class="flex-grow m-0 block">
           <input matInput [formControl]="messageControl" (keydown.enter)="sendMessage()"
             placeholder="Ask me anything...">
           <mat-error *ngIf="messageControl.invalid && messageControl.touched">Message cannot be empty.</mat-error>
         </mat-form-field>
-        <button mat-fab color="primary" type="submit"
+        <button mat-fab color="primary" type="submit" class="block" aria-label="Send Message"
           [disabled]="messageControl.invalid || !messageControl.value?.trim()">
           <mat-icon>send</mat-icon>
         </button>

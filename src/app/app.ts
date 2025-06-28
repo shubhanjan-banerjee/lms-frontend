@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ToastrComponent } from './components/toastr/toastr.component';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { PageLoaderComponent } from './components/loader/page-loader.component';
+import { ToastrComponent } from './components/shared/toastr/toastr.component';
+import { PageLoaderComponent } from './components/shared/loader/page-loader.component';
+import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-root',
