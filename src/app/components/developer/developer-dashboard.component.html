@@ -1,0 +1,65 @@
+<div class="flex h-screen bg-gray-100 font-inter">
+  <!-- Sidebar Navigation -->
+  <div class="w-100 bg-gradient-to-b from-blue-800 to-blue-900 text-white p-6 shadow-xl flex flex-col justify-between">
+    <div>
+      <div class="text-2xl font-extrabold text-cyan-300 mb-10">LMS Developer</div>
+      <nav>
+        <ul>
+          <li class="mb-4">
+            <a routerLink="/developer/dashboard" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">dashboard</mat-icon> Dashboard
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/my-courses" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">playlist_add_check</mat-icon> My Courses
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/skill-progress" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">track_changes</mat-icon> Skill Progress
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/learning-paths" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">library_books</mat-icon> Learning Paths
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/courses" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">school</mat-icon> Courses
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/reports" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">bar_chart</mat-icon> Reports
+            </a>
+          </li>
+          <li class="mb-4">
+            <a routerLink="/developer/chatbot" routerLinkActive="bg-blue-700 text-white shadow-md"
+              class="w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 flex items-center hover:bg-blue-600 text-gray-300">
+              <mat-icon class="align-middle mr-2">chat_bubble</mat-icon> Chatbot
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mt-auto">
+      <button (click)="logout()"
+        class="w-full flex items-center justify-center px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300">
+        <mat-icon class="align-middle mr-2">logout</mat-icon> Log Out
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area for Developer Dashboard -->
+  <main class="flex-1 overflow-y-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <router-outlet></router-outlet>
+  </main>
+</div>

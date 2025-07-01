@@ -1,0 +1,20 @@
+<div class="course-details p-8 max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100">
+  <div *ngIf="loading" class="loader text-center py-10 text-lg font-semibold text-gray-500">Loading...</div>
+  <ng-container *ngIf="!loading && course">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-3xl font-extrabold text-gray-900">{{ course.name }}</h2>
+      <span class="bg-indigo-100 text-indigo-700 text-sm font-semibold px-3 py-1 rounded-full">#{{ course.id }}</span>
+    </div>
+    <div class="text-gray-700 text-lg mb-4">{{ course.description }}</div>
+    <div class="flex gap-4 mb-4">
+      <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded text-sm font-medium">Provider: {{ course.provider
+        }}</span>
+      <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded text-sm font-medium">Duration: {{
+        course.duration_hours }}h</span>
+    </div>
+    <div *ngIf="course.image_url" class="mb-4">
+      <img [src]="course.image_url" alt="Course image"
+        class="rounded-xl w-full max-h-64 object-cover border border-gray-200 shadow" />
+    </div>
+  </ng-container>
+</div>

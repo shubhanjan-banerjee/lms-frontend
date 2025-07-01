@@ -5,13 +5,13 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeUploadService {
-  private apiUrl = environment.apiUrl + '/admin/userupload';
+  private apiUrl = environment.apiUrl + '/admin';
 
   constructor(private http: HttpClient) { }
 
   uploadExcel(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(this.apiUrl, formData);
+    return this.http.post(`${this.apiUrl}/userupload`, formData);
   }
 }
