@@ -25,10 +25,29 @@ export class AdminLearningPathDetailsComponent implements OnInit {
 
   fetchLearningPath(id: number) {
     this.loading = true;
-    this.learningPathService.getLearningPath(id).subscribe({
-      next: (res: any) => { this.learningPath = res; this.loading = false; },
-      error: () => { this.loading = false; }
-    });
+    // Dummy data for demo
+    setTimeout(() => {
+      this.learningPath = {
+        id: id,
+        name: 'Frontend Mastery',
+        description: 'Angular, TypeScript, and UI/UX best practices.',
+        courses: [
+          { course: { id: 1, name: 'Angular Basics', description: 'Intro to Angular', provider: 'Udemy', duration_hours: 5 } },
+          { course: { id: 2, name: 'TypeScript Advanced', description: 'Deep dive into TS', provider: 'Coursera', duration_hours: 4 } }
+        ],
+        users: [
+          { id: 1, name: 'Alice Johnson', completion: 90 },
+          { id: 2, name: 'Bob Williams', completion: 60 },
+          { id: 4, name: 'Dana Lee', completion: 40 }
+        ]
+      };
+      this.loading = false;
+    }, 500);
+    // Uncomment below for real API
+    // this.learningPathService.getLearningPath(id).subscribe({
+    //   next: (res: any) => { this.learningPath = res; this.loading = false; },
+    //   error: () => { this.loading = false; }
+    // });
   }
 
   goToCourse(id: number) {

@@ -35,9 +35,9 @@
     <!-- Message Input -->
     <mat-card-content class="p-4 border-t border-gray-200 bg-gray-50 rounded-b-xl">
       <!-- align-items: flex-start; in tailwind -->
-      <form class="flex items-start gap-4 mt-8" (ngSubmit)="sendMessage()">
+      <form class="flex items-start gap-4 mt-8" (ngSubmit)="sendMessage($event)">
         <mat-form-field appearance="outline" class="flex-grow m-0 block">
-          <input matInput [formControl]="messageControl" (keydown.enter)="sendMessage()"
+          <input matInput [formControl]="messageControl" (keydown.enter)="sendMessage($event)"
             placeholder="Ask me anything...">
           <mat-error *ngIf="messageControl.invalid && messageControl.touched">Message cannot be empty.</mat-error>
         </mat-form-field>

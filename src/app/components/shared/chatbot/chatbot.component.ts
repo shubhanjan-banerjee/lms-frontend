@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms'; // Using FormControl for input
 // Angular Material Imports
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +17,8 @@ import { MatListModule } from '@angular/material/list'; // New Import
 import { MatDividerModule } from '@angular/material/divider'; // New Import
 import { MatToolbarModule } from '@angular/material/toolbar'; // New Import
 import { CommonModule } from '@angular/common';
+import { ChatbotService } from '../../../services/chatbot.service';
+
 interface Message {
   text: string;
   sender: 'user' | 'ai';
@@ -25,6 +27,7 @@ interface Message {
 
 @Component({
   selector: 'app-chatbot',
+  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -42,18 +45,21 @@ interface Message {
     MatSnackBarModule,
     MatListModule, // New Import
     MatDividerModule, // New Import
-    MatToolbarModule // New Import
+    MatToolbarModule, // New Import
   ],
   templateUrl: './chatbot.component.html',
-  styleUrls: ['./chatbot.component.scss']
+  styleUrls: ['./chatbot.component.scss'],
+  providers: [ChatbotService]
 })
 export class ChatbotComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
   messageControl = new FormControl('', Validators.required); // Input field control
+  isLoading = false;
+  errorMsg = '';
 
   @ViewChild('messagesContainer') private messagesContainer!: ElementRef;
 
-  constructor() { }
+  constructor(@Inject(ChatbotService) private chatbotService: ChatbotService) { }
 
   ngOnInit(): void {
     // Initial greeting from AI
@@ -64,18 +70,32 @@ export class ChatbotComponent implements OnInit, AfterViewInit {
     this.scrollToBottom();
   }
 
-  sendMessage(): void {
-    const userText = this.messageControl.value?.trim();
-    if (userText && this.messageControl.valid) {
-      this.addUserMessage(userText);
-      this.messageControl.reset(); // Clear input field
-      this.messageControl.markAsPristine(); // Reset validation state
-
-      // Simulate AI response after a short delay
-      setTimeout(() => {
-        this.generateAiResponse(userText);
-      }, 700);
+  sendMessage(event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
     }
+    const userText = this.messageControl.value?.trim();
+    if (!userText || this.messageControl.invalid) {
+      return;
+    }
+    this.addUserMessage(userText);
+    this.messageControl.reset();
+    this.messageControl.markAsPristine();
+    this.isLoading = true;
+    this.errorMsg = '';
+    // Ensure API is called only once per submit
+    this.chatbotService.sendMessage(userText).subscribe({
+      next: (res: { answer: string }) => {
+        this.addAiMessage(res.answer);
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        this.addAiMessage('Sorry, there was a problem connecting to the chatbot.');
+        this.isLoading = false;
+        this.errorMsg = 'Chatbot unavailable.';
+      }
+    });
   }
 
   addUserMessage(text: string): void {
@@ -86,29 +106,6 @@ export class ChatbotComponent implements OnInit, AfterViewInit {
   addAiMessage(text: string): void {
     this.messages.push({ text, sender: 'ai', timestamp: new Date() });
     this.scrollToBottom();
-  }
-
-  generateAiResponse(userText: string): void {
-    let aiResponse = "I'm still learning, but I can help with general questions. What specifically would you like to know about LMS features?";
-
-    // Simple keyword-based responses (for demo purposes)
-    if (userText.toLowerCase().includes('hello') || userText.toLowerCase().includes('hi')) {
-      aiResponse = "Hello there! How can I help you today?";
-    } else if (userText.toLowerCase().includes('employee management')) {
-      aiResponse = "The Employee Management page allows admins to add, edit, delete, and import employee data via Excel. What else would you like to know?";
-    } else if (userText.toLowerCase().includes('skill gap')) {
-      aiResponse = "Skill gap analysis helps identify discrepancies between required and existing skills. Admins can view reports and assign learning paths.";
-    } else if (userText.toLowerCase().includes('learning path')) {
-      aiResponse = "Learning paths are curated sequences of courses to help users achieve specific skill sets. You can register for them on your dashboard.";
-    } else if (userText.toLowerCase().includes('features')) {
-      aiResponse = "Our LMS offers Admin features like employee management, skill gap analysis, and reporting, and Developer features like personalized dashboards and course registration.";
-    } else if (userText.toLowerCase().includes('thank you') || userText.toLowerCase().includes('thanks')) {
-      aiResponse = "You're most welcome! Is there anything else?";
-    } else if (userText.toLowerCase().includes('how are you')) {
-      aiResponse = "As an AI, I don't have feelings, but I'm ready to assist you!";
-    }
-
-    this.addAiMessage(aiResponse);
   }
 
   scrollToBottom(): void {

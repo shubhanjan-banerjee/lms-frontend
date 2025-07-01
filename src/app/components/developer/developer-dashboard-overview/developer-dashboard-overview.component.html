@@ -36,4 +36,77 @@
     <p class="text-lg text-gray-600">Welcome to your developer dashboard. Use the sidebar to access your courses,
       track your skill progress, view your learning path, reports, and interact with the chatbot for quick help.</p>
   </div>
+
+  <!-- Loading/Error States -->
+  <div *ngIf="loading" class="text-center my-8">
+    <span class="text-blue-600">Loading learning paths...</span>
+  </div>
+  <div *ngIf="error" class="text-center my-8">
+    <span class="text-red-600">{{ error }}</span>
+  </div>
+
+  <!-- Mandatory Learning Paths Section -->
+  <div *ngIf="!loading && !error" class="mt-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Mandatory Learning Paths</h2>
+    <div *ngIf="mandatoryLearningPaths.length; else noMandatory">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let lp of mandatoryLearningPaths" class="bg-white rounded-lg shadow p-4">
+          <h3 class="text-lg font-semibold text-indigo-700">{{ lp.learning_path.name }}</h3>
+          <p class="text-gray-600 mb-2">{{ lp.learning_path.description }}</p>
+          <span class="text-xs text-gray-400">Assigned: {{ lp.assigned_date | date }}</span>
+        </div>
+      </div>
+    </div>
+    <ng-template #noMandatory>
+      <p class="text-gray-500">No mandatory learning paths assigned.</p>
+    </ng-template>
+  </div>
+
+  <!-- System-Recommended Learning Paths Section -->
+  <div *ngIf="!loading && !error" class="mt-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">System-Recommended Learning Paths</h2>
+    <div *ngIf="recommendedLearningPaths.length; else noRecommended">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div *ngFor="let lp of recommendedLearningPaths" class="bg-white rounded-lg shadow p-4">
+          <h3 class="text-lg font-semibold text-green-700">{{ lp.learning_path.name }}</h3>
+          <p class="text-gray-600 mb-2">{{ lp.learning_path.description }}</p>
+          <span class="text-xs text-gray-400">Assigned: {{ lp.assigned_date | date }}</span>
+        </div>
+      </div>
+    </div>
+    <ng-template #noRecommended>
+      <p class="text-gray-500">No system-recommended learning paths available.</p>
+    </ng-template>
+  </div>
+
+  <!-- Learning Path Progress Section -->
+  <div *ngIf="!loading && !error" class="mt-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Learning Path Progress</h2>
+    <div *ngIf="userLearningPaths.length; else noProgress">
+      <div class="space-y-6">
+        <div *ngFor="let lp of userLearningPaths"
+          class="bg-white rounded-lg shadow p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+          <div>
+            <h3 class="text-lg font-semibold text-blue-700">{{ lp.learning_path.name }}</h3>
+            <p class="text-gray-600 mb-2">{{ lp.learning_path.description }}</p>
+          </div>
+          <div class="w-full md:w-1/3 mt-4 md:mt-0">
+            <div class="flex items-center mb-1">
+              <span class="text-sm text-gray-500 mr-2">Progress:</span>
+              <span class="text-sm font-bold text-indigo-700">{{ learningPathProgress[lp.learning_path_id] || 0
+                }}%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-4">
+              <div class="bg-indigo-500 h-4 rounded-full transition-all duration-500"
+                [style.width]="(learningPathProgress[lp.learning_path_id] || 0) + '%'">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noProgress>
+      <p class="text-gray-500">No learning path progress to display.</p>
+    </ng-template>
+  </div>
 </div>

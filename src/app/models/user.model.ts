@@ -1,5 +1,6 @@
 import { ProjectRoleResponse } from "./project-role.model";
 import { UserSkillResponse } from "./user-skill.model";
+import { UserLearningPathResponse, UserCourseProgressResponse } from "./learning-path.model";
 
 export interface UserResponse {
   sso_id: string;
@@ -13,6 +14,8 @@ export interface UserResponse {
   date_joined: string;
   last_login?: string | null;
   user_skills?: UserSkillResponse[];
+  user_learning_paths?: UserLearningPathResponse[];
+  user_course_progress?: UserCourseProgressResponse[];
 }
 
 export interface UserCreate {

@@ -153,4 +153,112 @@ export class AdminDashboardOverviewComponent {
     const text = encodeURIComponent(path.name || 'No Name');
     return `https://placehold.co/400x250/${color}/FFFFFF?text=${text}`;
   }
+
+
+  // Dummy users with learning progress
+  users = [
+    { id: 1, name: 'Alice Johnson', role: 'Developer', progress: 80 },
+    { id: 2, name: 'Bob Williams', role: 'Developer', progress: 60 },
+    { id: 3, name: 'Charlie Brown', role: 'Developer', progress: 95 },
+    { id: 4, name: 'Dana Lee', role: 'Developer', progress: 40 },
+    { id: 5, name: 'Eve Smith', role: 'Developer', progress: 100 }
+  ];
+
+  // For details view
+  selectedLearningPath: any = null;
+
+  // Overall progress (average)
+  get overallProgress(): number {
+    if (!this.users.length) return 0;
+    return Math.round(this.users.reduce((sum, u) => sum + u.progress, 0) / this.users.length);
+  }
+
+  showLearningPathDetails(lp: any) {
+    this.selectedLearningPath = lp;
+  }
+
+  closeLearningPathDetails() {
+    this.selectedLearningPath = null;
+  }
+
+  // --- New dummy data and logic for enhanced admin dashboard ---
+
+  // New: Overall progress for all users (already present as overallProgress getter)
+  // New: Learning path registration and per-user completion (already present as learningPaths and selectedLearningPath)
+  // If you want to keep both old and new, you can use new property names or sections in the template.
+  // For demonstration, let's add a new set of learning paths and users for the new UI section:
+
+  extraUsers = [
+    { id: 6, name: 'Frank Miller', role: 'Developer', progress: 70 },
+    { id: 7, name: 'Grace Hopper', role: 'Developer', progress: 85 }
+  ];
+
+  extraLearningPaths = [
+    {
+      id: 201,
+      name: 'DevOps Essentials',
+      description: 'CI/CD, Docker, and Kubernetes basics.',
+      registeredUsersCount: 2,
+      users: [
+        { id: 6, name: 'Frank Miller', completion: 70 },
+        { id: 7, name: 'Grace Hopper', completion: 85 }
+      ]
+    },
+    {
+      id: 202,
+      name: 'AI Fundamentals',
+      description: 'Machine learning and AI basics for developers.',
+      registeredUsersCount: 1,
+      users: [
+        { id: 7, name: 'Grace Hopper', completion: 85 }
+      ]
+    }
+  ];
+
+  extraSelectedLearningPath: any = null;
+
+  get extraOverallProgress(): number {
+    if (!this.extraUsers.length) return 0;
+    return Math.round(this.extraUsers.reduce((sum, u) => sum + u.progress, 0) / this.extraUsers.length);
+  }
+
+  showExtraLearningPathDetails(lp: any) {
+    this.extraSelectedLearningPath = lp;
+  }
+
+  closeExtraLearningPathDetails() {
+    this.extraSelectedLearningPath = null;
+  }
+
+  // Dummy data for role-skill swap suggestions
+  roleSkillSwaps = [
+    {
+      employee: 'Alice Johnson',
+      currentRole: 'Backend Developer',
+      suggestedRole: 'Cloud Security Engineer',
+      skill: 'Cloud Security',
+      reason: 'Has strong Cloud Security skills not fully utilized in current role.'
+    },
+    {
+      employee: 'Bob Williams',
+      currentRole: 'Frontend Developer',
+      suggestedRole: 'DevOps Engineer',
+      skill: 'CI/CD',
+      reason: 'Demonstrated advanced CI/CD skills in recent projects.'
+    },
+    {
+      employee: 'Charlie Brown',
+      currentRole: 'QA Engineer',
+      suggestedRole: 'Backend Developer',
+      skill: 'Node.js',
+      reason: 'High proficiency in Node.js, suitable for backend tasks.'
+    },
+    {
+      employee: 'Dana Lee',
+      currentRole: 'Data Analyst',
+      suggestedRole: 'AI Engineer',
+      skill: 'Machine Learning',
+      reason: 'Completed multiple ML courses and projects.'
+    }
+  ];
 }
